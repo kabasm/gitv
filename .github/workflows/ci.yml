@@ -21,11 +21,8 @@ jobs:
       - name: Run GitVersion 6.x
         id: gitversion
         run: |
-          VERSION=$( dotnet-gitversion /output json )
+          echo "FULLSEMVER=$( dotnet-gitversion /output json | jq -r '.FullSemVer')" >> $GITHUB_ENV
 
       - name: Show all GitVersion outputs
         run: |
-          echo "FullSemVer: $(echo $VERSION | jq -r '.FullSemVer')"
-          echo "Major: $(echo $VERSION | jq -r '.Major')"
-          echo "Minor: $(echo $VERSION | jq -r '.Minor')"
-          echo "Patch: $(echo $VERSION | jq -r '.Patch')"
+          echo "FullSemVer: $FULLSEMVER"
