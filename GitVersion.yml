@@ -1,5 +1,6 @@
 assembly-versioning-scheme: MajorMinorPatch
 assembly-file-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-format: '{Major}.{Minor}.0.{WeightedPreReleaseNumber ?? 0}'
 tag-prefix: '[vV]?'
 version-in-branch-pattern: (?<version>[vV]?\d+(\.\d+)?(\.\d+)?).*
 major-version-bump-message: \+semver:\s?(breaking|major)
@@ -19,10 +20,10 @@ strategies:
 - TrackReleaseBranches
 - VersionInBranchName
 branches:
-  master:
+  main:
     mode: ContinuousDeployment
     label: ''
-    increment: Minor
+    increment: Inherit
     prevent-increment:
       of-merged-branch: false
     track-merge-target: false
@@ -43,7 +44,7 @@ branches:
     track-merge-message: true
     regex: ^features?[/-](?<BranchName>.+)
     source-branches:
-    - master
+    - main
     - hotfix
     is-source-branch-for: []
     is-main-branch: false
