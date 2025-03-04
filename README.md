@@ -2,7 +2,7 @@
 
 ## purpose
 
-The output of version
+The output of the version
 
 ## pipeline cases
 
