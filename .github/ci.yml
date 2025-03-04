@@ -1,0 +1,33 @@
+name: Versioning
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  calculate-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup GitVersion
+        uses: GitVersion/setup@v0
+        with:
+          versionSpec: '6.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: GitVersion/execute@v0
+        with:
+          additional-arguments: --output json
+
+      - name: Output Version
+        run: |
+          echo "Full SemVer: ${{ steps.gitversion.outputs.semVer }}"
+          echo "Major.Minor.Patch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
+          echo "Assembly Version: ${{ steps.gitversion.outputs.assemblySemVer }}"
+          echo "Informational Version: ${{ steps.gitversion.outputs.informationalVersion }}"
